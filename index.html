@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="utilities.css">
+    <title>Document</title>
+
+</head>
+<body>
+    <header class="">
+        <div class="container">
+            <div id="logo" class="txt-blk">LOGO</div>
+            <div id =headerLeft class="d-flex">                
+                <span class="txt-blk">Difficoltà:</span>
+                <select id="difficolta">
+                  <option value="1">Facile</option>
+                  <option value="2">Medio</option>
+                  <option value="3">Difficile</option>
+                </select>               
+                <button id="btnPlayer">PLAY</button>
+            </div>
+        </div>
+    </header>
+    <main class="d-flex j-cont-cnt">
+        <div id="grid">
+            <div id="cell">
+                <div id="numb"></div>
+            </div>
+        </div>
+    </main>
+    <script src="main.js"></script>
+</body>
+</html>

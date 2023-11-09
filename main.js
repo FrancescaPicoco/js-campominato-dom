@@ -24,23 +24,17 @@ function creaGriglia() {
 
     let cellePerRiga = Math.sqrt(numeroCelletot);
     console.log("numero celle per riga" , cellePerRiga);
-    //let quadratino = creaQuadratino();
-    //quadratino.style.width = `calc (100% / ${cellePerRiga})`;
-    //quadratino.style.height = `calc (100% / ${cellePerRiga})`;
 
     gridBuild.innerHTML = ""; 
     
     for (let i = 1; i <= numeroCelletot ; i++) {
-        
-        //let stringaCella = creaQuadratino(i);
+    
         let cellaSingola = creaQuadratino(i);
     
         // calcoloHew ();  
-        const vediamo = `calc (100% / ${cellePerRiga} )`;
-        console.log(vediamo , "RISULTATO CALC");
 
-        cellaSingola.style.width =  "50px";//`calc (100% / ${cellePerRiga} )`;
-        cellaSingola.style.height = "50px";// `calc (100% / ${cellePerRiga} )`;
+        cellaSingola.style.width =  `calc(100% / ${cellePerRiga} )`;
+        cellaSingola.style.height =  `calc(100% / ${cellePerRiga} )`;
 
         gridBuild.appendChild(cellaSingola);
     }     
@@ -48,17 +42,9 @@ function creaGriglia() {
 
 function creaQuadratino(indexCell) {
     let quadratino = document.createElement("div");
-        quadratino.classList.add("square");
-
-        /*const numeroCelletot = livelloDifficoltà(); 
-         console.log("numero celle totali" , numeroCelletot);
-
-         let cellePerRiga = Math.sqrt(numeroCelletot);
-         console.log("numero celle per riga" , cellePerRiga);*/
-       
+        quadratino.classList.add("square");      
         quadratino.innerText = (indexCell);
-        //quadratino.style.width += `calc (100% / ${cellePerRiga} )`;
-        //quadratino.style.height += `calc (100% / ${cellePerRiga} )`;
+ 
         quadratino.addEventListener("click" , function () {
             this.classList.toggle("black");
             console.log("valore della cella cliccata è" , indexCell);  

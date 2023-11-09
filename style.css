@@ -27,16 +27,12 @@ header{
     width: 700px;
     height: 700px;
     background-color: rgb(75, 81, 88);
+    margin-bottom: 5rem;
 }
 .square{
     border: 2px solid cadetblue;
-    width: calc(100% / 10);
-    height: calc(100% / 10);
-}
-.mediosquare{
-    border: 2px solid darkslategrey;
-    width: calc(100% / 9);
-    height: calc(100% / 9);
+    /*width: calc(100% / 7);
+    height: calc(100% / 7);*/
 }
 .black{
     background-color: rgba(0, 0, 0, 0.699);

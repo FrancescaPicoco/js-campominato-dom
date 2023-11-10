@@ -36,14 +36,15 @@ function creaGriglia() {
         } else if (sixteenRndNumber.includes(celleBomba)) {                                    //altrimenti
             let NuovoNumero = getRndInteger(1,numeroCelletot);       //genero un altro numero
             sixteenRndNumber.push(NuovoNumero);     //e lo pusco nell'array
+        }else {
+
         }                                        //cosi da avere sempre 16 caratteri nell'array            
     }
     console.log("array delle celle bomba" , sixteenRndNumber);
 
     gridBuild.innerHTML = ""; 
     
-    for (let i = 1; i <= numeroCelletot ; i++) {
-    
+    for (let i = 1; i <= numeroCelletot ; i++) {    
         let quadratino = creaQuadratino(i);  
         quadratino.style.width =  `calc(100% / ${cellePerRiga} )`;
         quadratino.style.height =  `calc(100% / ${cellePerRiga} )`;
@@ -52,38 +53,39 @@ function creaGriglia() {
             this.classList.toggle("black");
             console.log("valore della cella cliccata è" , i);  
             quadratino.classList.toggle("stylenumber");
-            const numeroCelleValide = numeroCelletot - sixteenRndNumber
-           
-            if(!gameover){
-                if (i  == cellaFortunata) {
-                    console.log("hai vinto");     
-                    quadratino.classList.toggle("lucky");
-                    quadratino.innerText = ("YOU WIN");
-                }else if (sixteenRndNumber.includes(cellaFortunata)) {
-                    getRndInteger(1 , numeroCelletot);              
-                }else if (!sixteenRndNumber.includes(i)){ //se non hai beccato la bomba                 
-                    document.getElementById("punti").innerHTML= `Punteggio : ${highscore}`;
-                    if( highscore < numeroCelleValide){
-                       highscore++                  
-                       console.log(highscore);
-                    } else if(highscore == numeroCelleValide){
-                       alert("hai cliccato tutte le celle possibili")
-                    } else{}
+            const numeroCelleValide = numeroCelletot - sixteenRndNumber.length;
+            if (highscore < numeroCelleValide) {
+                if(gameover == false){
+                    if (i  == cellaFortunata) {    //caso in cui clicco la cella fortunata
+                        console.log("hai vinto");     
+                        quadratino.classList.toggle("lucky");
+                        quadratino.innerText = ("YOU WIN");             
+                    }else if (!sixteenRndNumber.includes(i)){ //se non hai beccato la bomba  ==> punteggio            
+                        document.getElementById("punti").innerHTML= `Punteggio : ${highscore}`;
+                        if( highscore < numeroCelleValide){
+                           highscore++   
+                           quadratino.classList.add("done")
+                           console.log("continua cosi +10 punti");               
+                           console.log(highscore);
+                        } else if(highscore == numeroCelleValide){
+                           alert("hai cliccato tutte le celle possibili")
+                        }   
+                    }else if ( sixteenRndNumber.includes(i)) {
+                        gameover = true;
+                        quadratino.classList.add("bomba")
+                        alert("BOMB")
+                        console.log("HAI PERSO", i); 
+                        //fine gioco                  
+                    }                                              
                 }
-                quadratino.classList.add("done")
-                console.log("continua cosi +10 punti");
-                }else if ( sixteenRndNumber.includes(i)) {
-                    gameover = true;
-                    quadratino.classList.add("bomba")
-                    alert("BOMBAAAA")
-                    console.log("HAI PERSO", i);                   
-                }
-            } 
-                           
-        )}
+
+            }          
+                                
+        });
+
         gridBuild.appendChild(quadratino);
     }            
-};
+}
 
 function creaQuadratino(indexCell) {
     let quadratino = document.createElement("div");

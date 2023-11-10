@@ -1,8 +1,6 @@
-
 document.getElementById("btnPlayer").addEventListener("click" , function(){
     creaGriglia();
-    
-    
+    gameover=false;   
 })   
 function livelloDifficoltà () {
     let level = parseInt(document.getElementById("difficolta").value);
@@ -16,7 +14,7 @@ function livelloDifficoltà () {
     }
     return numeroCelletot;
 }
-let risultato = "hai vinto";
+let highscore = 0;
 let sixteenRndNumber = [];
 function creaGriglia() {  
     const gridBuild = document.getElementById("grid");
@@ -30,12 +28,15 @@ function creaGriglia() {
 
     const cellaFortunata = getRndInteger(1,numeroCelletot);
     console.log("numero della cella fortunata" , cellaFortunata)
-    sixteenRndNumber = [];
-    
+    sixteenRndNumber = []
     for (let i = 1; i <= 16 ; i++) {
-        const indexCellaBomba = [i];
-        let celleBomba = getRndInteger(1 , numeroCelletot);
-        sixteenRndNumber.push(celleBomba);     
+        let celleBomba = getRndInteger(1 , numeroCelletot);  //creo const per richiamare funzione numeri random
+        if (!sixteenRndNumber.includes(celleBomba)){    //se cella bomba !NON! è presente nell'array
+            sixteenRndNumber.push(celleBomba);     //pusho il numero dentro l'array
+        } else if (sixteenRndNumber.includes(celleBomba)) {                                    //altrimenti
+            let NuovoNumero = getRndInteger(1,numeroCelletot);       //genero un altro numero
+            sixteenRndNumber.push(NuovoNumero);     //e lo pusco nell'array
+        }                                        //cosi da avere sempre 16 caratteri nell'array            
     }
     console.log("array delle celle bomba" , sixteenRndNumber);
 
@@ -43,35 +44,51 @@ function creaGriglia() {
     
     for (let i = 1; i <= numeroCelletot ; i++) {
     
-        let cellaSingola = creaQuadratino(i , cellaFortunata);
-        // calcoloHew ();  
-        cellaSingola.style.width =  `calc(100% / ${cellePerRiga} )`;
-        cellaSingola.style.height =  `calc(100% / ${cellePerRiga} )`;
+        let quadratino = creaQuadratino(i);  
+        quadratino.style.width =  `calc(100% / ${cellePerRiga} )`;
+        quadratino.style.height =  `calc(100% / ${cellePerRiga} )`;
 
-        gridBuild.appendChild(cellaSingola);
-    }     
-}
+        quadratino.addEventListener("click" , function () {
+            this.classList.toggle("black");
+            console.log("valore della cella cliccata è" , i);  
+            quadratino.classList.toggle("stylenumber");
+            const numeroCelleValide = numeroCelletot - sixteenRndNumber
+           
+            if(!gameover){
+                if (i  == cellaFortunata) {
+                    console.log("hai vinto");     
+                    quadratino.classList.toggle("lucky");
+                    quadratino.innerText = ("YOU WIN");
+                }else if (sixteenRndNumber.includes(cellaFortunata)) {
+                    getRndInteger(1 , numeroCelletot);              
+                }else if (!sixteenRndNumber.includes(i)){ //se non hai beccato la bomba                 
+                    document.getElementById("punti").innerHTML= `Punteggio : ${highscore}`;
+                    if( highscore < numeroCelleValide){
+                       highscore++                  
+                       console.log(highscore);
+                    } else if(highscore == numeroCelleValide){
+                       alert("hai cliccato tutte le celle possibili")
+                    } else{}
+                }
+                quadratino.classList.add("done")
+                console.log("continua cosi +10 punti");
+                }else if ( sixteenRndNumber.includes(i)) {
+                    gameover = true;
+                    quadratino.classList.add("bomba")
+                    alert("BOMBAAAA")
+                    console.log("HAI PERSO", i);                   
+                }
+            } 
+                           
+        )}
+        gridBuild.appendChild(quadratino);
+    }            
+};
 
-function creaQuadratino(indexCell , cellaFortunata , indexCellaBomba) {
+function creaQuadratino(indexCell) {
     let quadratino = document.createElement("div");
         quadratino.classList.add("square");      
         quadratino.innerText = (indexCell);
- 
-        quadratino.addEventListener("click" , function () {
-            this.classList.toggle("black");
-            console.log("valore della cella cliccata è" , indexCell);  
-            quadratino.classList.toggle("stylenumber");
-            if ( sixteenRndNumber.includes(indexCell)){
-                console.log("HAI PERSO", indexCell);
-            }else if (indexCell  == cellaFortunata) {
-                console.log("hai vinto");     
-                quadratino.classList.toggle("lucky");
-                quadratino.innerText = ("YOU WIN");                
-            }else if (sixteenRndNumber.includes(cellaFortunata)) {
-                getRndInteger(1 , numeroCelletot);
-            }else{
-            }
-        })
     return quadratino; 
 }
 function getRndInteger(min, max) {
@@ -95,5 +112,3 @@ function getRndInteger(min, max) {
         
     }
 }*/
-
-

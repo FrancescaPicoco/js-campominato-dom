@@ -5,7 +5,7 @@
 }
 body{
     font-family: 'Roboto' , sans-serif;
-    background-color:rgb(58, 65, 72);
+    background-color:rgb(58, 65,72);
     color: cadetblue;
 }
 header{
@@ -48,6 +48,12 @@ header{
     color: slategrey;
     font-size: 20px;
     padding-top: 0.5rem;
+}
+.bomba{
+    background-color: brown;
+}
+.done{
+    background-color: rgb(58, 65,72);
 }
 
 

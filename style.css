@@ -43,5 +43,11 @@ header{
     color: cadetblue;
     font-weight: 800;
 }
+.lucky{
+    background-color: darkslateblue;
+    color: slategrey;
+    font-size: 20px;
+    padding-top: 0.5rem;
+}
 
 
